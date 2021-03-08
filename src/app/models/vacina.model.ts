@@ -1,11 +1,14 @@
 import { Paciente } from './paciente.model';
-
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
+moment.locale('pt-br');
 
 export class Vacina {
 
   private id?: number | null | undefined = null;
   private nomeDaVacina: string;
   private dataDaAplicacao: string;
+  private dataDaAplicacaoFormatada?: string;
   private usuario: Paciente;
 
   constructor(vacina: Vacina) {
@@ -13,10 +16,11 @@ export class Vacina {
     this.nomeDaVacina = vacina.nomeDaVacina;
     this.dataDaAplicacao = vacina.dataDaAplicacao;
     this.usuario = vacina.usuario;
+    this.dataDaAplicacaoFormatada = this.getDataDaAplicacaoFormatada(vacina.dataDaAplicacao);
   }
 
 
-  public getId(): number | null | undefined{
+  public getId(): number | null | undefined {
     return this.id;
   }
 
@@ -30,6 +34,10 @@ export class Vacina {
 
   public getDataDaAplicacao(): string {
     return this.dataDaAplicacao;
+  }
+
+  public getDataDaAplicacaoFormatada(data: string): string {
+    return this.dataDaAplicacaoFormatada = moment(data).format('DD/MM/YYYY');
   }
 
   public setDataDaAplicacao(dataAplicacao: string): void {

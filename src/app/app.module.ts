@@ -9,7 +9,7 @@ import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,89 @@
+<app-navbar></app-navbar>
+<article class="container my-3">
+  <div class="row py-3">
+    <div class="col-sm-4">
+      <mat-card>
+        <mat-card-title>Buscar Paciente</mat-card-title>
+        <mat-card-content>
+          <div class="w-50">
+            <form [formGroup]="formularioBusca" (ngSubmit)="buscarDadosPaciente()">
+              <mat-form-field appearance="fill">
+                <mat-label>Digite o Numero do CPF.</mat-label>
+                <input matInput formControlName="numeroDoCpf" [mask]="getCpfCnpjMask()">
+              </mat-form-field>
+              <p>
+                <button type="submit" mat-raised-button color="primary" [disabled]="!formularioBusca.valid">Buscar Paciente</button>
+              </p>
+            </form>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <ng-container *ngFor="let vacina of pacienteVacinas">
+      <div class="col-sm-4">
+        <mat-card>
+          <mat-card-title>1º Dose.</mat-card-title>
+          <mat-card-content>
+            {{vacina | json}}
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+  <div class="row py-3">
+    <div class="col-sm-12 col-lg-6">
+      <mat-card>
+        <mat-card-title>Aplicação de vacina</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="formulario" (ngSubmit)="vacinarPaciente()">
+            <mat-form-field appearance="fill">
+              <mat-label>Nome da Vacina palicada</mat-label>
+              <input matInput formControlName="nomeDaVacina">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Data da aplicação</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dataDaAplicacao">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <p>
+              <button type="submit" mat-raised-button color="primary" [disabled]="!formulario.valid">Vacinar</button>
+            </p>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+      <mat-card *ngIf="paciente == undefined">
+        <mat-card-content>
+          <mat-card-title>Selecione o Paciente que será vacinado!</mat-card-title>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="paciente != undefined">
+        <mat-card-content>
+          <mat-card-title>Dados do Paciente</mat-card-title>
+          <div class="my-2">
+            <div class="row ">
+              <div class="col-sm-6">
+                <h3><span class="font-weight-bold">Nome:</span> {{paciente.nome}}</h3>
+              </div>
+              <div class="col-sm-6">
+                <p><span class="font-weight-bold">CPF:</span> {{paciente.numeroDoCpf}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p><span class="font-weight-bold">Email:</span> {{paciente.email}}</p>
+              </div>
+              <div class="col-sm-6">
+                <p><span class="font-weight-bold">Data de Nasc:</span> {{paciente.dataDeNascimentoFormatada}}</p>
+              </div>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</article>

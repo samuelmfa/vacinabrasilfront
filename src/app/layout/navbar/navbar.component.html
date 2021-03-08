@@ -2,7 +2,7 @@
   <button mat-icon-button class="example-icon" [matMenuTriggerFor]="settingsMenu">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Sistema de Aplicação de Vacinas</span>
+  <span>Programa Vacina Sim</span>
   <span class="example-spacer"></span>
   <mat-menu #settingsMenu>
     <a mat-menu-item [routerLink]="['/']">
@@ -13,7 +13,7 @@
       <mat-icon>account_circle</mat-icon>
       <span>Nova Paciente</span>
     </a>
-    <a mat-menu-item>
+    <a mat-menu-item [routerLink]="['aplicacao-vacina']">
       <mat-icon>local_pharmacy</mat-icon>
       <span>Nova Aplicação</span>
     </a>
