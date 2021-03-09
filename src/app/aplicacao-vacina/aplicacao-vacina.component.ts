@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Paciente } from './../models/paciente.model';
 import { AplicacaoVacinaService } from './aplicacao-vacina.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
@@ -17,13 +18,14 @@ export class AplicacaoVacinaComponent implements OnInit {
   public formularioPaciente: FormGroup;
   public formularioBusca: FormGroup;
   public paciente: any;
-  public pacienteVacinas: Array<Vacina>;
+  public pacienteVacinas: Array<Vacina> = [];
   public cpfCnpj: string;
 
   constructor(
     private fb: FormBuilder,
     private aplicacaoService: AplicacaoVacinaService,
     private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class AplicacaoVacinaComponent implements OnInit {
       nomeDaVacina: ['', [Validators.required]],
       dataDaAplicacao: ['', [Validators.required]],
       usuario: this.fb.group({
-        id: [''],
+        id: ['', Validators.required],
         nome: [''],
         email: [''],
         numeroDoCpf: [''],
@@ -51,6 +53,7 @@ export class AplicacaoVacinaComponent implements OnInit {
   public vacinarPaciente(): void {
     this.aplicacaoService.salvarVacinacao(this.formulario.value).subscribe((resp) => {
       this.openSnackBar('Paciente vacinado com Sucesso!');
+      this.router.navigate(['']);
     }, (error) => {
       if (error.status === 400) {
         this.openSnackBar(error.error.message);
@@ -67,6 +70,7 @@ export class AplicacaoVacinaComponent implements OnInit {
     this.aplicacaoService.buscarPorCpfPaciente(this.formularioBusca.controls.numeroDoCpf.value).subscribe((resp) => {
       this.paciente = new Paciente({ ...resp });
       this.aplicacaoService.buscarVacinaPorPaciente(this.paciente.getId()).subscribe((resp: any) => {
+        this.pacienteVacinas = [];
         resp.forEach((element: any) => {
           const vacina = new Vacina({ ...element });
           this.pacienteVacinas.push(vacina);
