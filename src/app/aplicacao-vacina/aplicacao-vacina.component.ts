@@ -1,5 +1,5 @@
 import { HelpersService } from './../helpers/helpers.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from './../models/paciente.model';
 import { AplicacaoVacinaService } from './aplicacao-vacina.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
@@ -21,17 +21,31 @@ export class AplicacaoVacinaComponent implements OnInit {
   public paciente: any;
   public pacienteVacinas: Array<Vacina> = [];
   public cpfCnpj: string;
+  private cpf: string;
 
   constructor(
     private fb: FormBuilder,
     private aplicacaoService: AplicacaoVacinaService,
     private snackBar: MatSnackBar,
     private router: Router,
+    private activeRoute: ActivatedRoute,
     private helperService: HelpersService
   ) { }
 
   ngOnInit(): void {
+    this.activeRoute.params.subscribe(params => {
+      if (params['cpf']) {
+        this.cpf = params['cpf'];
+        this.criaFormularios();
+        this.buscarDadosPacienteRota(this.cpf);
+      } else {
+        this.criaFormularios();
+      }
+    });
+  }
 
+
+  public criaFormularios(): void {
     this.formularioBusca = this.fb.group({
       numeroDoCpf: ['', [Validators.required, this.validateCPF]]
     });
@@ -48,13 +62,14 @@ export class AplicacaoVacinaComponent implements OnInit {
         dataDeNascimento: [''],
       })
     });
+
   }
 
   public vacinarPaciente(): void {
     this.formulario.patchValue({ nomeDaVacina: this.formataNomeVacina(this.formulario.controls.nomeDaVacina.value) });
     this.aplicacaoService.salvarVacinacao(this.formulario.value).subscribe((resp) => {
       this.openSnackBar('Paciente vacinado com Sucesso!');
-      this.buscarDadosPaciente();
+      this.buscarDadosPacientePadrao();
     }, (error) => {
       if (error.status === 400) {
         this.openSnackBar(error.error.message);
@@ -67,8 +82,17 @@ export class AplicacaoVacinaComponent implements OnInit {
     });
   }
 
-  public buscarDadosPaciente(): void {
-    this.aplicacaoService.buscarPorCpfPaciente(this.formularioBusca.controls.numeroDoCpf.value).subscribe((resp) => {
+  public buscarDadosPacienteRota(cpf: string): void {
+    this.buscarDados(cpf);
+    this.formularioBusca.patchValue({ numeroDoCpf: cpf });
+  }
+
+  public buscarDadosPacientePadrao(): void {
+    this.buscarDados(this.formularioBusca.controls.numeroDoCpf.value);
+  }
+
+  public buscarDados(cpf: string): void {
+    this.aplicacaoService.buscarPorCpfPaciente(cpf).subscribe((resp) => {
       this.paciente = new Paciente({ ...resp });
       this.aplicacaoService.buscarVacinaPorPaciente(this.paciente.getId()).subscribe((resp: any) => {
         this.pacienteVacinas = [];
@@ -124,7 +148,7 @@ export class AplicacaoVacinaComponent implements OnInit {
   public excluir(id: any): void {
     if (id !== null || id !== undefined) {
       this.aplicacaoService.excluirVacinaDoPaciente(id).subscribe(() => {
-        this.buscarDadosPaciente();
+        this.buscarDadosPacientePadrao();
         this.openSnackBar('Vacinação excluida com Sucesso!');
       }, error => console.log(error));
     }
@@ -134,7 +158,10 @@ export class AplicacaoVacinaComponent implements OnInit {
     this.paciente = undefined;
     this.pacienteVacinas = [];
     this.formulario.reset();
-    this.formularioPaciente.reset();
+    if (this.formularioPaciente) {
+      this.formularioPaciente.reset();
+    }
+
     this.formularioBusca.reset();
   }
 

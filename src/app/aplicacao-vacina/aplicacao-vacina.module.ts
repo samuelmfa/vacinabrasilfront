@@ -9,9 +9,10 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialSharedModule } from '../material-shared/material-shared.module';
 import { LayoutModule } from '../layout/layout.module';
 import { HelpersService } from '../helpers/helpers.service';
+import { AplicacaoVacinaModelComponent } from './aplicacao-vacina-model/aplicacao-vacina-model.component';
 
 @NgModule({
-  declarations: [AplicacaoVacinaComponent],
+  declarations: [AplicacaoVacinaComponent, AplicacaoVacinaModelComponent],
   imports: [
     CommonModule,
     AplicacaoVacinaRoutingModule,

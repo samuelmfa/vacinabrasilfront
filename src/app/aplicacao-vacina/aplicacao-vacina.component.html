@@ -6,14 +6,23 @@
         <mat-card-title>Buscar Paciente</mat-card-title>
         <mat-card-content>
           <div class="w-50">
-            <form [formGroup]="formularioBusca" (ngSubmit)="buscarDadosPaciente()">
+            <form [formGroup]="formularioBusca" (ngSubmit)="buscarDadosPacientePadrao()">
               <mat-form-field appearance="fill">
                 <mat-label>Digite o Numero do CPF.</mat-label>
                 <input matInput formControlName="numeroDoCpf" [mask]="getCpfCnpjMask()">
               </mat-form-field>
-              <p>
-                <button type="submit" mat-raised-button color="primary" [disabled]="!formularioBusca.valid">Buscar Paciente</button>
-              </p>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p>
+                    <button type="submit" mat-raised-button color="primary" [disabled]="!formularioBusca.valid">Buscar</button>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p>
+                    <a  class="text-decoration-none" mat-raised-button color="warn" [routerLink]="['/aplicacao-vacina/aplicacao']" (click)="limpaCampos()">Limpar</a>
+                  </p>
+                </div>
+              </div>
             </form>
           </div>
         </mat-card-content>
@@ -91,8 +100,8 @@
                   <td>{{vacina.getNomeDaVacina()}}</td>
                   <td>{{vacina.getDataDaAplicacaoFormatada(vacina.getDataDaAplicacao())}}</td>
                   <td> <button mat-icon-button color="warn" matTooltip="excluir" matTooltipPosition="above" (click)="excluir(vacina.getId())">
-                    <mat-icon>delete</mat-icon>
-                  </button></td>
+                      <mat-icon>delete</mat-icon>
+                    </button></td>
                 </tr>
               </ng-container>
             </tbody>
