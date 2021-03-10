@@ -36,8 +36,6 @@ export class AplicacaoVacinaComponent implements OnInit {
       numeroDoCpf: ['', [Validators.required, this.validateCPF]]
     });
 
-
-
     this.formulario = this.fb.group({
       id: [''],
       nomeDaVacina: ['', [Validators.required]],
@@ -130,7 +128,6 @@ export class AplicacaoVacinaComponent implements OnInit {
         this.openSnackBar('Vacinação excluida com Sucesso!');
       }, error => console.log(error));
     }
-
   }
 
   public limpaCampos(): void {
