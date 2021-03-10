@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <article class="container my-3">
   <div class="row py-3">
-    <div class="col-sm-6">
+    <div class="col-sm-6  my-3">
       <mat-card>
         <mat-card-title>Buscar Paciente</mat-card-title>
         <mat-card-content>
@@ -20,34 +20,7 @@
       </mat-card>
     </div>
 
-    <div class="col-sm-6">
-      <mat-card *ngIf="pacienteVacinas.length > 0">
-        <mat-card-title>Aplicações:</mat-card-title>
-        <mat-card-content>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Nome da Vacina</th>
-                <th>Data da Aplicação</th>
-                <th>Excluir</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let vacina of pacienteVacinas">
-                <tr>
-                  <td>{{vacina.getNomeDaVacina()}}</td>
-                  <td>{{vacina.getDataDaAplicacaoFormatada(vacina.getDataDaAplicacao())}}</td>
-                  <td></td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-  <div class="row py-3">
-    <div class="col-sm-12 col-lg-6">
+    <div class="col-sm-6  my-3">
       <mat-card>
         <mat-card-title>Aplicação de vacina</mat-card-title>
         <mat-card-content>
@@ -69,30 +42,62 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-sm-12 col-lg-6" *ngIf="paciente != undefined">
-      <mat-card >
+  </div>
+  <div class="row py-3">
+    <div class="col-sm-12 my-3" *ngIf="paciente != undefined">
+      <mat-card>
         <mat-card-content>
           <mat-card-title>Dados do Paciente</mat-card-title>
-          <div class="my-2">
-            <div class="row ">
-              <div class="col-sm-6">
-                <h3><span class="font-weight-bold">Nome:</span> {{paciente.nome}}</h3>
-              </div>
-              <div class="col-sm-6">
-                <p><span class="font-weight-bold">CPF:</span> {{paciente.numeroDoCpf}}</p>
-              </div>
+          <mat-card-content class="my-2">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Nome:</th>
+                    <th>CPF:</th>
+                    <th>Email:</th>
+                    <th>Data de Nasc:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{paciente.nome}}</td>
+                    <td>{{paciente.numeroDoCpf}}</td>
+                    <td>{{paciente.email}}</td>
+                    <td>{{paciente.dataDeNascimentoFormatada}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <p><span class="font-weight-bold">Email:</span> {{paciente.email}}</p>
-              </div>
-              <div class="col-sm-6">
-                <p><span class="font-weight-bold">Data de Nasc:</span> {{paciente.dataDeNascimentoFormatada}}</p>
-              </div>
-            </div>
-          </div>
+          </mat-card-content>
         </mat-card-content>
       </mat-card>
     </div>
+    <div class="col-sm-12  my-3">
+      <mat-card *ngIf="pacienteVacinas.length > 0">
+        <mat-card-title>Aplicações</mat-card-title>
+        <mat-card-content class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome da Vacina</th>
+                <th>Data da Aplicação</th>
+                <th>Excluir</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let vacina of pacienteVacinas">
+                <tr>
+                  <td>{{vacina.getNomeDaVacina()}}</td>
+                  <td>{{vacina.getDataDaAplicacaoFormatada(vacina.getDataDaAplicacao())}}</td>
+                  <td></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
   </div>
 </article>
