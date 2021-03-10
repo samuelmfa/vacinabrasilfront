@@ -5,7 +5,7 @@ moment.locale('pt-br');
 
 export class Vacina {
 
-  private id?: number | null | undefined = null;
+  private id: number | undefined | null = null;
   private nomeDaVacina: string;
   private dataDaAplicacao: string;
   private dataDaAplicacaoFormatada?: string;
@@ -20,7 +20,7 @@ export class Vacina {
   }
 
 
-  public getId(): number | null | undefined {
+  public getId(): number| undefined | null {
     return this.id;
   }
 

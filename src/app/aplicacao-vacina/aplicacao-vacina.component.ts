@@ -56,7 +56,7 @@ export class AplicacaoVacinaComponent implements OnInit {
     this.formulario.patchValue({ nomeDaVacina: this.formataNomeVacina(this.formulario.controls.nomeDaVacina.value) });
     this.aplicacaoService.salvarVacinacao(this.formulario.value).subscribe((resp) => {
       this.openSnackBar('Paciente vacinado com Sucesso!');
-      this.router.navigate(['']);
+      this.buscarDadosPaciente();
     }, (error) => {
       if (error.status === 400) {
         this.openSnackBar(error.error.message);
@@ -90,6 +90,7 @@ export class AplicacaoVacinaComponent implements OnInit {
     }, (error) => {
       if (error.status === 404) {
         this.openSnackBar(error.error.message);
+        this.limpaCampos();
       }
     });
   }
@@ -120,6 +121,24 @@ export class AplicacaoVacinaComponent implements OnInit {
 
   public formataNomeVacina(nome: string): string {
     return this.helperService.formataNome(nome);
+  }
+
+  public excluir(id: any): void {
+    if (id !== null || id !== undefined) {
+      this.aplicacaoService.excluirVacinaDoPaciente(id).subscribe(() => {
+        this.buscarDadosPaciente();
+        this.openSnackBar('Vacinação excluida com Sucesso!');
+      }, error => console.log(error));
+    }
+
+  }
+
+  public limpaCampos(): void {
+    this.paciente = undefined;
+    this.pacienteVacinas = [];
+    this.formulario.reset();
+    this.formularioPaciente.reset();
+    this.formularioBusca.reset();
   }
 
 }

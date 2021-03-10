@@ -23,10 +23,12 @@ export class AplicacaoVacinaService {
     return this.http.get<Array<Vacina>>(`${HUB_URL.apiDev}/vacinas/usuario/${id}`, this.headers.getHttpHeaders());
   }
 
-
-
   public salvarVacinacao(vacinacao: Vacina): Observable<any> {
     return this.http.post<Paciente>(`${HUB_URL.apiDev}/vacinas`, vacinacao, this.headers.getHttpHeaders());
+  }
+
+  public excluirVacinaDoPaciente(id: number): Observable<any> {
+    return this.http.delete(`${HUB_URL.apiDev}/vacinas/${id}`, this.headers.getHttpHeaders());
   }
 
 }

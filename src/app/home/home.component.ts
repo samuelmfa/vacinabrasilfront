@@ -1,6 +1,6 @@
 import { Paciente } from './../models/paciente.model';
 import { HomeService } from './home.service';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDilogComponent } from '../components/confirm-dilog/confirm-dilog.component';
 import { Observable } from 'rxjs';
@@ -29,12 +29,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
+    this.aplicarPaginator(this.pacientes$);
   }
 
   public aplicarPaginator(pacientes: any): void {
     this.dataSource = new MatTableDataSource(pacientes);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.paginator.firstPage();
+    if (this.dataSource.paginator !== undefined) {
+      this.dataSource.paginator.firstPage();
+    }
+
   }
 
   public applyFilter(event: Event): void {
