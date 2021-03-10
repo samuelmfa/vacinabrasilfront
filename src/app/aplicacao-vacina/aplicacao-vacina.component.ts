@@ -1,3 +1,4 @@
+import { HelpersService } from './../helpers/helpers.service';
 import { Router } from '@angular/router';
 import { Paciente } from './../models/paciente.model';
 import { AplicacaoVacinaService } from './aplicacao-vacina.service';
@@ -25,7 +26,8 @@ export class AplicacaoVacinaComponent implements OnInit {
     private fb: FormBuilder,
     private aplicacaoService: AplicacaoVacinaService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private helperService: HelpersService
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class AplicacaoVacinaComponent implements OnInit {
   }
 
   public vacinarPaciente(): void {
+    this.formulario.patchValue({ nomeDaVacina: this.formataNomeVacina(this.formulario.controls.nomeDaVacina.value) });
     this.aplicacaoService.salvarVacinacao(this.formulario.value).subscribe((resp) => {
       this.openSnackBar('Paciente vacinado com Sucesso!');
       this.router.navigate(['']);
@@ -113,6 +116,10 @@ export class AplicacaoVacinaComponent implements OnInit {
   public adicionaPacienteVacinado(obj: FormGroup): void {
     let vacinaForm = this.formulario.get('usuario') as FormArray;
     vacinaForm.push(obj);
+  }
+
+  public formataNomeVacina(nome: string): string {
+    return this.helperService.formataNome(nome);
   }
 
 }

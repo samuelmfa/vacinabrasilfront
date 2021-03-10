@@ -8,6 +8,7 @@ import { AplicacaoVacinaRoutingModule } from './aplicacao-vacina-routing.module'
 import { SharedModule } from '../shared/shared.module';
 import { MaterialSharedModule } from '../material-shared/material-shared.module';
 import { LayoutModule } from '../layout/layout.module';
+import { HelpersService } from '../helpers/helpers.service';
 
 @NgModule({
   declarations: [AplicacaoVacinaComponent],
@@ -17,6 +18,6 @@ import { LayoutModule } from '../layout/layout.module';
     LayoutModule,
     MaterialSharedModule,
     SharedModule,
-  ], providers: [AplicacaoVacinaService, HttpConfig]
+  ], providers: [AplicacaoVacinaService, HttpConfig, HelpersService]
 })
 export class AplicacaoVacinaModule { }
