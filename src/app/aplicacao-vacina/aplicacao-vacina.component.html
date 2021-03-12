@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <article class="container my-3">
   <div class="row py-3">
-    <div class="col-sm-6  my-3">
+    <div class="col-sm-6 my-2">
       <mat-card>
         <mat-card-title>Buscar Paciente</mat-card-title>
         <mat-card-content>
@@ -29,13 +29,13 @@
       </mat-card>
     </div>
 
-    <div class="col-sm-6  my-3">
+    <div class="col-sm-6  my-2">
       <mat-card>
-        <mat-card-title>Aplicação de vacina</mat-card-title>
+        <mat-card-title>Aplicação de Vacina</mat-card-title>
         <mat-card-content>
           <form [formGroup]="formulario" (ngSubmit)="vacinarPaciente()">
             <mat-form-field appearance="fill">
-              <mat-label>Nome da Vacina palicada</mat-label>
+              <mat-label>Nome da vacina aplicada</mat-label>
               <input matInput formControlName="nomeDaVacina">
             </mat-form-field>
             <mat-form-field appearance="fill">
@@ -52,8 +52,8 @@
       </mat-card>
     </div>
   </div>
-  <div class="row py-3">
-    <div class="col-sm-12 my-3" *ngIf="paciente != undefined">
+  <div class="row ">
+    <div class="col-sm-12" *ngIf="paciente != undefined">
       <mat-card>
         <mat-card-content>
           <mat-card-title>Dados do Paciente</mat-card-title>
@@ -82,7 +82,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-sm-12  my-3">
+    <div class="col-sm-12 my-3 ">
       <mat-card *ngIf="pacienteVacinas.length > 0">
         <mat-card-title>Aplicações</mat-card-title>
         <mat-card-content class="table-responsive">
