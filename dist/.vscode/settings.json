@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/09ca13ec-cb8a-447b-9eec-64c782b4bf2d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/vacinasim-angular",
+    "appService.deploySubpath": "."
+}

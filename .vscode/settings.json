@@ -3,6 +3,6 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/09ca13ec-cb8a-447b-9eec-64c782b4bf2d/resourceGroups/app-vacina-angular/providers/Microsoft.Web/sites/app-vacinasim",
-    "appService.deploySubpath": "dist"
+    "appService.deploySubpath": "dist",
+    "appService.defaultWebAppToDeploy": "/subscriptions/09ca13ec-cb8a-447b-9eec-64c782b4bf2d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/vacinasim-angular"
 }
