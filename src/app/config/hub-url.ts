@@ -1,3 +1,3 @@
 export const HUB_URL = {
-  apiDev: 'http://localhost:8081'
+  apiDev: 'https://vacina-brasil-1615634768529.azurewebsites.net/'
 };
