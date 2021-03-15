@@ -1,3 +1,3 @@
 export const HUB_URL = {
-  apiDev: 'https://vacina-brasil-1615634768529.azurewebsites.net/'
+  apiDev: 'https://app-vacinabrasil.herokuapp.com/'
 };
