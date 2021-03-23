@@ -7,6 +7,9 @@ COPY ./ /app/
 ARG env=prod
 RUN npm run build
 
+EXPOSE 80
+CMD gunicorn --bind 0.0.0.0:80 wsgi
+
 # Estagio 2 - Será responsavel por expor a aplicação
 FROM nginx:1.13
 COPY --from=node /app/dist/app-vacina /usr/share/nginx/html

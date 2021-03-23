@@ -1,3 +1,3 @@
 export const HUB_URL = {
-  apiDev: 'https://app-vacinabrasil.herokuapp.com/'
+  apiDev: 'https://app-vacinabrasil.herokuapp.com'
 };
